@@ -1,0 +1,6 @@
+.popup__button {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 2px;
+    margin: 0 auto;
+}

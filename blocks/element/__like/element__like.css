@@ -1,0 +1,6 @@
+.element__like {
+    display: grid;
+    grid-template-columns: auto min-content;
+    padding: 25px 15px 31px 21px;
+    max-height: 23px;
+}

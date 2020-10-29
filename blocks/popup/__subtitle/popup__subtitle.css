@@ -1,0 +1,10 @@
+.popup__subtitle {
+    margin: 0 auto 48px auto;
+   
+}
+
+@media screen and (max-width: 320px) {
+    .popup__subtitle {
+        margin: 0 auto 45px auto;
+    }
+}

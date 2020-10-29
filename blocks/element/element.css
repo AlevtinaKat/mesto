@@ -1,0 +1,7 @@
+.element {
+    display: grid;
+    grid-template-rows: max-content min-content;
+    background: #ffffff;
+    border-radius: 10px;
+    text-overflow: ellipsis;
+}

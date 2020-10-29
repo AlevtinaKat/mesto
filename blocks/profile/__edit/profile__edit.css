@@ -1,0 +1,4 @@
+.profile__edit {
+    display: grid;
+    grid-template-columns: max-content min-content;
+}
