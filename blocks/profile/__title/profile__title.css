@@ -10,7 +10,7 @@
     white-space: nowrap;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 640px) {
     .profile__title  {
         max-width: 189px;
         font-size: 27px;

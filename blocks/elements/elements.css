@@ -6,7 +6,14 @@
     justify-content: center;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 880px) {
+    .elements {
+        grid-template-columns: repeat(2, min-content);
+        grid-template-rows: repeat(3, min-content);
+    }
+}
+
+@media screen and (max-width: 640px) {
     .elements {
         grid-template-columns: none;
         grid-template-rows: repeat(6, min-content);

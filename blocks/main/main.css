@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 640px) {
     .main {
         width: calc(100% - 2 * 19px);
         padding-top: 38.25px;
