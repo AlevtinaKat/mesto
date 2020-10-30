@@ -1,8 +1,4 @@
-.button {
-    background-color: #000000;
-}
-
 .button:hover {
     transition: background-color 1s linear 1s;
-    opacity: .5;
+    opacity: .6;
 }
