@@ -1,9 +1,0 @@
-.popup__input_subtitle {
-    margin: 0 auto 48px auto;
-}
-
-@media screen and (max-width: 320px) {
-    .popup__input_subtitle {
-        margin: 0 auto 45px auto;
-    }
-}

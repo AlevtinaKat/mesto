@@ -3,13 +3,13 @@
     min-height: 50px;
     border-style: none;
     border-radius: 2px;
-    margin: 0 auto 37px auto;
+    margin: 18px auto 37px auto;
     background-color: #000000;
     color: #FFFFFF;
 }
 
 @media screen and (max-width: 320px) {
     .popup__button {
-        margin: 0 auto 25px auto;
+        margin: 15px auto 25px auto;
     }
 }

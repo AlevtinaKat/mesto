@@ -12,8 +12,8 @@ let profileSubtitle = document.querySelector('.profile__subtitle');
 
 function showClick() {
     popup.classList.add('popup__open');
-    titleInput.setAttribute('value', profileTitle.textContent);
-    subtitleInput.setAttribute('value', profileSubtitle.textContent);
+    titleInput.value = profileTitle.textContent;
+    subtitleInput.value = profileSubtitle.textContent;
 }
 
 function closeClick() {
