@@ -1,0 +1,11 @@
+.element__bin {
+    background-image: url('../../../images/bin.svg');
+    width: 18px;
+    height: 19.3px;
+    background-color: rgb(0, 0, 0, 0);
+    position: absolute;
+    z-index: 1;
+    border: none;
+    right: 15px;
+    top: 18px;
+}

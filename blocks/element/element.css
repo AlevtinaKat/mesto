@@ -5,4 +5,5 @@
     background: #ffffff;
     border-radius: 10px;
     text-overflow: ellipsis;
+    position: relative;
 }
