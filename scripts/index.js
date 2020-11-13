@@ -1,4 +1,4 @@
-const popup = document.querySelector('.popup__edit');
+const popup = document.querySelector('.popup_edit');
 
 const editButton = document.querySelector('.profile__edit-button');
 const closeButton = document.querySelector('.popup__close_edit');
@@ -12,10 +12,10 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 const elements = document.querySelector('.elements');
 
-const popupFoto = document.querySelector('.popup__foto');
+const popupFoto = document.querySelector('.popup_foto');
 const closeFotoButton = document.querySelector('.popup__close_foto');
 
-const popupPicture = document.querySelector('.popup__picture');
+const popupPicture = document.querySelector('.popup_picture');
 
 const addButton = document.querySelector('.profile__add-button');
 const closePictureButton = document.querySelector('.popup__close_picture');
