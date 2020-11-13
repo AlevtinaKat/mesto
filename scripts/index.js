@@ -140,8 +140,6 @@ function createFotoElement(elem) {
 
 function showPictureClick() {
     popupPicture.classList.add('popup__open');
-    placeInput.value = 'Название';
-    linkInput.value = 'Ссылка на картинку';
 }
 
 function closePictureClick() {
