@@ -28,6 +28,8 @@ const linkInput = document.querySelector(".popup__input_link");
 const img = document.querySelector(".popup__foto-full");
 const popupFotoTitle = document.querySelector(".popup__foto-title");
 
+const popupForms = document.querySelectorAll(".popup__content");
+
 const initialCards = [
   {
     name: "Архыз",
@@ -67,15 +69,20 @@ function showClick() {
   subtitleInput.value = profileSubtitle.textContent;
 }
 
-function closeClick() {
-  popup.classList.remove("popup__open");
+function closeClick(form) {
+  form.parentNode.classList.remove("popup__open");
+  const popupInputs = form.querySelectorAll(".popup__input");
+  popupInputs.forEach(input => {
+    input.value = "";
+    hideError(form, input)
+  });
 }
 
 function saveClick(event) {
   event.preventDefault();
   profileTitle.textContent = titleInput.value;
   profileSubtitle.textContent = subtitleInput.value;
-  closeClick();
+  closeClick(event.target);
 }
 
 function clickLike(event) {
@@ -130,24 +137,101 @@ function showPictureClick() {
   popupPicture.classList.add("popup__open");
 }
 
-function closePictureClick() {
-  popupPicture.classList.remove("popup__open");
-}
-
 function savePictureClick(event) {
   event.preventDefault();
   createFotoElement({ name: placeInput.value, link: linkInput.value });
-  closePictureClick();
+  closeButtonClick(event.target);
 }
 
 initialCards.forEach(createFotoElement);
 
 editButton.addEventListener("click", showClick);
-closeButton.addEventListener("click", closeClick);
+closeButton.addEventListener("click", event => closeClick(event.target.parentNode));
 popupForm.addEventListener("submit", saveClick);
 
 addButton.addEventListener("click", showPictureClick);
-closePictureButton.addEventListener("click", closePictureClick);
+closePictureButton.addEventListener("click", event => closeClick(event.target.parentNode));
 popupPictureForm.addEventListener("submit", savePictureClick);
 
 closeFotoButton.addEventListener("click", closeFotoClick);
+
+
+
+function setButtonState(button, isActive) {
+  if (isActive) {
+      button.classList.remove("popup__button_invalid");
+      button.disabled = false;
+  } else {
+      button.classList.add("popup__button_invalid");
+      button.disabled = true; 
+  }
+}
+
+function showError(form, input) {
+  const error = form.querySelector(`#${input.name}-error`);
+  error.textContent = input.validationMessage;
+  input.classList.add("popup__input_state_invalid");
+}
+
+function hideError(form, input) {
+  const error = form.querySelector(`#${input.name}-error`);
+  error.textContent = '';
+  input.classList.remove("popup__input_state_invalid");
+}
+
+function checkValidity(input) {
+  if (input.validity.valueMissing) {
+    input.setCustomValidity("Вы пропустили это поле.");
+  }
+
+  if (input.name === 'link' && input.validity.patternMismatch) {
+    input.setCustomValidity("Введите адрес сайта.");
+  }
+}
+
+function checkInputValidity(form, input) {
+  input.setCustomValidity("");
+  checkValidity(input);
+
+  if (input.validity.valid) {
+    hideError(form, input);
+  } else {
+    showError(form, input); 
+  }
+}
+
+function popupFormValidation(form) {
+  const popupButton = form.querySelector(".popup__button");
+  setButtonState(popupButton, form.checkValidity());
+
+  const popupInputs = form.querySelectorAll(".popup__input");
+
+  popupInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      checkInputValidity(form, input);
+      setButtonState(popupButton, form.checkValidity());
+    });
+  });
+  
+};
+
+function closePopupEsc(event) {
+  if (event.keyCode == 27) {
+    const open = document.querySelector(".popup__open");
+    if (open != null) {
+      closeClick(open.firstElementChild);
+    }
+  }
+}
+
+function closePopupOverlay(event) {
+  closeClick(event.target.firstElementChild);
+}
+
+document.addEventListener('keyup', closePopupEsc);
+
+popup.addEventListener('click', closePopupOverlay);
+popupFoto.addEventListener('click', closePopupOverlay);
+popupPicture.addEventListener('click', closePopupOverlay);
+
+popupForms.forEach(popupFormValidation);

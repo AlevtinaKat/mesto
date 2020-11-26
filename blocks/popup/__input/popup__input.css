@@ -8,5 +8,7 @@
     line-height: 17px;
     color: #000000;
     padding: 0 0 13px 0;
-    margin: 0 auto 30px auto;
+    margin: 0 auto auto auto;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
