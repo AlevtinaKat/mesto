@@ -225,7 +225,9 @@ function closePopupEsc(event) {
 }
 
 function closePopupOverlay(event) {
-  closeClick(event.target.firstElementChild);
+  if (event.target.classList.contains("popup")) {
+    closeClick(event.target.firstElementChild);
+  }
 }
 
 document.addEventListener('keyup', closePopupEsc);
