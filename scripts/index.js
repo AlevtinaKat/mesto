@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 const ESC_CODE = 27;
 const popup = document.querySelector(".popup_edit");
 
@@ -28,6 +31,10 @@ const linkInput = document.querySelector(".popup__input_link");
 
 const img = document.querySelector(".popup__foto-full");
 const popupFotoTitle = document.querySelector(".popup__foto-title");
+
+const cardTemplate = document.querySelector(".element-template");
+
+const popupForms = document.querySelectorAll(".popup__content");
 
 const initialCards = [
   {
@@ -88,21 +95,6 @@ function saveClick(event) {
   closeClick(popup);
 }
 
-function clickLike(event) {
-  event.target.classList.toggle("element__heart_black");
-}
-
-function removeElement(event) {
-  event.target.closest(".element").remove();
-}
-
-function showFotoClick(event) {
-  showPopup(popupFoto);
-  img.src = event.target.src;
-  img.alt = event.target.alt;
-  popupFotoTitle.textContent = event.target.alt;
-}
-
 function showPopup(popupInput) {
   popupInput.classList.add("popup__open");
   document.addEventListener("keyup", closePopupEsc);
@@ -115,31 +107,6 @@ function closePopup(popupInput) {
   popupInput.removeEventListener("click", closePopupOverlay);
 }
 
-function createFotoElement(elem) {
-  const element = document
-    .querySelector(".element-template")
-    .content.cloneNode(true);
-
-  element
-    .querySelector(".element__foto-button")
-    .addEventListener("click", showFotoClick);
-
-  const elementFoto = element.querySelector(".element__foto");
-  elementFoto.src = elem.link;
-  elementFoto.alt = elem.name;
-
-  element
-    .querySelector(".element__bin")
-    .addEventListener("click", removeElement);
-
-  const elementTitle = element.querySelector(".element__title");
-  elementTitle.textContent = elem.name;
-
-  element.querySelector(".element__heart").addEventListener("click", clickLike);
-
-  return element;
-}
-
 function addElement(element) {
   elements.prepend(element);
 }
@@ -150,15 +117,21 @@ function showPictureClick() {
 
 function savePictureClick(event) {
   event.preventDefault();
-  addElement(
-    createFotoElement({ name: placeInput.value, link: linkInput.value })
+  const card = new Card(
+    { name: placeInput.value, link: linkInput.value },
+    cardTemplate,
+    showFotoClick
   );
+  const elem = card.createFotoElement();
+  addElement(elem);
   closeClick(popupPicture);
 }
 
-initialCards.forEach((initialCard) =>
-  addElement(createFotoElement(initialCard))
-);
+initialCards.forEach((initialCard) => {
+  const card = new Card(initialCard, cardTemplate, showFotoClick);
+  const elem = card.createFotoElement();
+  addElement(elem);
+});
 
 editButton.addEventListener("click", showClick);
 closeButton.addEventListener("click", () => closeClick(popup));
@@ -170,8 +143,11 @@ popupPictureForm.addEventListener("submit", savePictureClick);
 
 closeFotoButton.addEventListener("click", () => closePopup(popupFoto));
 
-function getPopupFromChild(event) {
-  return event.target.closest(".popup");
+function showFotoClick(event) {
+  showPopup(popupFoto);
+  img.src = event.target.src;
+  img.alt = event.target.alt;
+  popupFotoTitle.textContent = event.target.alt;
 }
 
 function closePopupEsc(event) {
@@ -188,3 +164,26 @@ function closePopupOverlay(event) {
     closeClick(event.target);
   }
 }
+
+
+function hideError(parent, input) {
+  const error = parent.querySelector(`#${input.name}-error`);
+  error.textContent = "";
+  input.classList.remove("popup__input_state_invalid");
+}
+
+const validationConfig = {
+  inputSelector: ".popup__input",
+  buttonSelector: ".popup__button",
+  inputInvalidClass: "popup__input_state_invalid",
+  buttonInvalidClass: "popup__button_invalid",
+  customMessages: {
+    inputMissmath: "Вы пропустили это поле.",
+    siteMismatch: "Введите адрес сайта.",
+  },
+};
+
+popupForms.forEach(popupForm => {
+  const formValidator = new FormValidator(validationConfig, popupForm, hideError);
+  formValidator.popupFormValidation();
+});
