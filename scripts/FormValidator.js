@@ -1,8 +1,7 @@
 export default class FormValidator {
-  constructor(config, form, hideError) {
+  constructor(config, form) {
     this._config = config;
     this._form = form;
-    this._hideError = hideError;
   }
 
   _setButtonState(button, isActive) {
@@ -21,6 +20,12 @@ export default class FormValidator {
     input.classList.add(this._config.inputInvalidClass);
   }
 
+  _hideError(input) {
+    const error = this._form.querySelector(`#${input.name}-error`);
+    error.textContent = "";
+    input.classList.remove(this._config.inputInvalidClass);
+  }
+
   _checkValidity(input) {
     if (input.validity.valueMissing) {
       input.setCustomValidity(this._config.customMessages.inputMissmath);
@@ -36,10 +41,18 @@ export default class FormValidator {
     this._checkValidity(input);
 
     if (input.validity.valid) {
-      this._hideError(this._form, input);
+      this._hideError(input);
     } else {
       this._showError(input);
     }
+  }
+
+  eraseInputs() {
+    const popupInputs = this._form.querySelectorAll(this._config.inputSelector);
+    popupInputs.forEach((input) => {
+      input.value = "";
+      this._hideError(input);
+    });
   }
 
   popupFormValidation() {

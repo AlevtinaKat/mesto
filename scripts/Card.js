@@ -6,7 +6,7 @@ export default class Card {
     this._showFotoClick = showFotoClick;
   }
 
-  createFotoElement() {
+  createPhotoElement() {
     const element = this._template.content.cloneNode(true);
 
     element
