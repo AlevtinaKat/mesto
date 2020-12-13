@@ -8,7 +8,7 @@ const popupEdit = document.querySelector(".popup_edit");
 const editButton = document.querySelector(".profile__edit-button");
 const closeButton = document.querySelector(".popup__close_edit");
 
-const popupForm = document.querySelector(".popup__content_edit");
+const popupEditForm = document.querySelector(".popup__content_edit");
 
 const titleInput = document.querySelector(".popup__input_title");
 const subtitleInput = document.querySelector(".popup__input_subtitle");
@@ -35,7 +35,22 @@ const popupFotoTitle = document.querySelector(".popup__foto-title");
 
 const cardTemplate = document.querySelector(".element-template");
 
-const popupForms = document.querySelectorAll(".popup__content");
+const validationConfig = {
+  inputSelector: ".popup__input",
+  buttonSelector: ".popup__button",
+  inputInvalidClass: "popup__input_state_invalid",
+  buttonInvalidClass: "popup__button_invalid",
+  customMessages: {
+    inputMissmath: "Вы пропустили это поле.",
+    siteMismatch: "Введите адрес сайта.",
+  },
+};
+
+const formEditValidator = new FormValidator(validationConfig, popupEditForm);
+const formPictureValidator = new FormValidator(validationConfig, popupPictureForm);
+
+formEditValidator.popupFormValidation();
+formPictureValidator.popupFormValidation();
 
 function openEditProfile() {
   showPopup(popupEdit);
@@ -45,8 +60,8 @@ function openEditProfile() {
 
 function closeForms(popupInput) {
   closePopup(popupInput);
-  const formValidator = new FormValidator(validationConfig, popupInput);
-  formValidator.eraseInputs();
+  formEditValidator.eraseInputs();
+  formPictureValidator.eraseInputs();
 }
 
 function saveClick(event) {
@@ -96,7 +111,7 @@ initialCards.forEach((initialCard) => {
 
 editButton.addEventListener("click", openEditProfile);
 closeButton.addEventListener("click", () => closeForms(popupEdit));
-popupForm.addEventListener("submit", saveClick);
+popupEditForm.addEventListener("submit", saveClick);
 
 addButton.addEventListener("click", showPictureClick);
 closePictureButton.addEventListener("click", () => closeForms(popupAddCard));
@@ -125,19 +140,3 @@ function closePopupOverlay(event) {
     closeForms(event.target);
   }
 }
-
-const validationConfig = {
-  inputSelector: ".popup__input",
-  buttonSelector: ".popup__button",
-  inputInvalidClass: "popup__input_state_invalid",
-  buttonInvalidClass: "popup__button_invalid",
-  customMessages: {
-    inputMissmath: "Вы пропустили это поле.",
-    siteMismatch: "Введите адрес сайта.",
-  },
-};
-
-popupForms.forEach((popupForm) => {
-  const formValidator = new FormValidator(validationConfig, popupForm);
-  formValidator.popupFormValidation();
-});
