@@ -1,9 +1,9 @@
 export default class Card {
 
-  constructor(cardData, template, showFotoClick) {
+  constructor(cardData, template, handleCardClick) {
     this._cardData = cardData;
     this._template = template;
-    this._showFotoClick = showFotoClick;
+    this._handleCardClick = handleCardClick;
   }
 
   createPhotoElement() {
@@ -11,7 +11,7 @@ export default class Card {
 
     element
       .querySelector(".element__foto-button")
-      .addEventListener("click", this._showFotoClick);
+      .addEventListener("click", this._handleCardClick);
 
     const elementFoto = element.querySelector(".element__foto");
     elementFoto.src = this._cardData.link;
