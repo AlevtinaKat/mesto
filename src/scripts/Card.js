@@ -4,38 +4,41 @@ export default class Card {
     this._cardData = cardData;
     this._template = template;
     this._handleCardClick = handleCardClick;
+    this._clickLike = this._clickLike.bind(this);
+    this._removeElement = this._removeElement.bind(this);
   }
 
   createPhotoElement() {
-    const element = this._template.content.cloneNode(true);
+    this._element = this._template.content.querySelector('.element').cloneNode(true);
 
-    element
+    this._element
       .querySelector(".element__foto-button")
       .addEventListener("click", this._handleCardClick);
 
-    const elementFoto = element.querySelector(".element__foto");
+    const elementFoto = this._element.querySelector(".element__foto");
     elementFoto.src = this._cardData.link;
     elementFoto.alt = this._cardData.name;
 
-    element
+    this._element
       .querySelector(".element__bin")
       .addEventListener("click", this._removeElement);
 
-    const elementTitle = element.querySelector(".element__title");
+    const elementTitle = this._element.querySelector(".element__title");
     elementTitle.textContent = this._cardData.name;
 
-    element
+    this._element
       .querySelector(".element__heart")
       .addEventListener("click", this._clickLike);
 
-    return element;
+    return this._element;
   }
 
-  _removeElement(event) {
-    event.target.closest(".element").remove();
+  _removeElement() {
+    this._element.remove();
+    this._element = null;
   }
 
-  _clickLike(event) {
-    event.target.classList.toggle("element__heart_black");
+  _clickLike() {
+    this._element.querySelector(".element__heart").classList.toggle("element__heart_black");
   }
 }

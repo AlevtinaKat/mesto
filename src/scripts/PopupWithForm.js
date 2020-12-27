@@ -1,25 +1,12 @@
 import Popup from "./Popup.js";
-import FormValidator from "./FormValidator.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, formSubmit) {
+  constructor(popup, formSubmit, formValidator) {
     super(popup);
     this._formSubmit = formSubmit;
     this._popupForm = popup.querySelector(".popup__content");
-    this._validationConfig = {
-      inputSelector: ".popup__input",
-      buttonSelector: ".popup__button",
-      inputInvalidClass: "popup__input_state_invalid",
-      buttonInvalidClass: "popup__button_invalid",
-      customMessages: {
-        inputMissmath: "Вы пропустили это поле.",
-        siteMismatch: "Введите адрес сайта.",
-      },
-    };
-    this._formValidator = new FormValidator(
-      this._validationConfig,
-      this._popupForm
-    );
+    
+    this._formValidator = formValidator;
     this._formValidator.popupFormValidation();
   }
 

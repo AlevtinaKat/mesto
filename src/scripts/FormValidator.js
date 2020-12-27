@@ -2,6 +2,7 @@ export default class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
+    this._popupButton = this._form.querySelector(this._config.buttonSelector);
   }
 
   _setButtonState(button, isActive) {
@@ -53,11 +54,11 @@ export default class FormValidator {
       input.value = "";
       this._hideError(input);
     });
+    this._setButtonState(this._popupButton, this._form.checkValidity());
   }
 
   popupFormValidation() {
-    const popupButton = this._form.querySelector(this._config.buttonSelector);
-    this._setButtonState(popupButton, this._form.checkValidity());
+    this._setButtonState(this._popupButton, this._form.checkValidity());
 
     const popupInputs = this._form.querySelectorAll(this._config.inputSelector);
 
