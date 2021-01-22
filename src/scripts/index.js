@@ -166,7 +166,7 @@ function savePictureClick(event, inputData) {
 function saveAvatarClick(event, inputData) {
   event.preventDefault();
   api
-    .saveAvatar(inputData["link"])
+    .saveAvatar(inputData["avatarLink"])
     .then((json) => {
       userInfo.showUser(json);
     })

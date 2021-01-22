@@ -19,7 +19,7 @@
       <main class="main">
         <section class="profile">
           <button class="profile__avatar-button" type="button">
-            <img class="profile__avatar" src="" alt="" />
+            <img class="profile__avatar" src="Для заполнения в js" alt="Для заполнения в js" />
             <img class="profile__avatar-pen" src="<%=require('./images/pen.svg')%>" alt="Ручка" />
           </button>
 
@@ -89,6 +89,19 @@
         >
           <h3 class="popup__text">Новое место</h3>
 
+          <label for="place">
+            <input
+              class="popup__input popup__input_place"
+              id="place"
+              name="place"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required="required"
+            />
+            <span id="place-error" class="error"></span>
+          </label>
+
           <label for="link">
             <input
               class="popup__input popup__input_link"
@@ -148,13 +161,13 @@
         <label for="link">
           <input
             class="popup__input popup__input_link"
-            id="link"
-            name="link"
+            id="avatarLink"
+            name="avatarLink"
             placeholder="Ссылка на картинку"
             required="required"
             pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)(.jpg)"
           />
-          <span id="link-error" class="error"></span>
+          <span id="avatarLink-error" class="error"></span>
         </label>
         <button
           class="button popup__close popup__close_avatar"
