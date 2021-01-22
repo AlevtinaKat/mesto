@@ -65,7 +65,7 @@ export default class FormValidator {
     popupInputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkInputValidity(input);
-        this._setButtonState(popupButton, this._form.checkValidity());
+        this._setButtonState(this._popupButton, this._form.checkValidity());
       });
     });
   }
