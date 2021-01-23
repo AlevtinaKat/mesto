@@ -35,9 +35,13 @@ export default class Card {
     const elementTitle = this._element.querySelector(".element__title");
     elementTitle.textContent = this._cardData.name;
 
-    this._element
-      .querySelector(".element__heart")
-      .addEventListener("click", this._clickLike);
+    this._heart = this._element.querySelector(".element__heart");
+    this._heart.addEventListener("click", this._clickLike);
+    this._cardData.likes.forEach((like) => {
+      if (like._id === this._id) {
+        this._heart.classList.toggle("element__heart_black");
+      }
+    });
 
     this._likeCount = this._element.querySelector(".element__like-count");
 
@@ -47,10 +51,9 @@ export default class Card {
   }
 
   _clickLike() {
-    const cl = this._element.querySelector(".element__heart").classList;
-    cl.toggle("element__heart_black");
+    const cl = this._heart.classList;
 
-    if (cl.contains("element__heart_black")) {
+    if (!cl.contains("element__heart_black")) {
       this._api
         .like(this._cardData._id)
         .then((json) => {
@@ -69,7 +72,8 @@ export default class Card {
           console.log(err);
         });
     }
-
+    
+    cl.toggle("element__heart_black");
   }
 
   _likeCounter(cardData) {

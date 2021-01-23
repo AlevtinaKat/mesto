@@ -19,8 +19,16 @@
       <main class="main">
         <section class="profile">
           <button class="profile__avatar-button" type="button">
-            <img class="profile__avatar" src="Для заполнения в js" alt="Для заполнения в js" />
-            <img class="profile__avatar-pen" src="<%=require('./images/pen.svg')%>" alt="Ручка" />
+            <img
+              class="profile__avatar"
+              src="Для заполнения в js"
+              alt="Для заполнения в js"
+            />
+            <img
+              class="profile__avatar-pen"
+              src="<%=require('./images/pen.svg')%>"
+              alt="Ручка"
+            />
           </button>
 
           <div class="profile__info">
@@ -76,9 +84,7 @@
             class="button popup__close popup__close_edit"
             type="button"
           ></button>
-          <button class="button popup__button" type="submit">
-            Сохранить
-          </button>
+          <button class="button popup__button" type="submit">Сохранить</button>
         </form>
       </div>
 
@@ -109,7 +115,7 @@
               name="link"
               placeholder="Ссылка на картинку"
               required="required"
-              pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)(.jpg)"
+              type="url" pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)"
             />
             <span id="link-error" class="error"></span>
           </label>
@@ -117,9 +123,7 @@
             class="button popup__close popup__close_picture"
             type="button"
           ></button>
-          <button class="button popup__button" type="submit">
-            Сохранить
-          </button>
+          <button class="button popup__button" type="submit">Сохранить</button>
         </form>
       </div>
 
@@ -165,7 +169,7 @@
             name="avatarLink"
             placeholder="Ссылка на картинку"
             required="required"
-            pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)(.jpg)"
+            type="url" pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)"
           />
           <span id="avatarLink-error" class="error"></span>
         </label>
