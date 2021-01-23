@@ -7,57 +7,11 @@ import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
+import * as Constants from "../utils/constants.js";
 
-const validationConfig = {
-  inputSelector: ".popup__input",
-  buttonSelector: ".popup__button",
-  inputInvalidClass: "popup__input_state_invalid",
-  buttonInvalidClass: "popup__button_invalid",
-  customMessages: {
-    inputMissmath: "Вы пропустили это поле.",
-    siteMismatch: "Введите адрес сайта.",
-  },
-};
+const api = new Api(Constants.apiOption);
 
-const apiOption = {
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-19",
-  headers: {
-    authorization: "eaf8f09c-3663-467a-8d68-0d5e48f6a657",
-    "Content-Type": "application/json",
-  },
-};
-const api = new Api(apiOption);
-
-const popupEdit = document.querySelector(".popup_edit");
-const popupBin = document.querySelector(".popup_bin");
-
-const editButton = document.querySelector(".profile__edit-button");
-const closeButton = document.querySelector(".popup__close_edit");
-const closeBinButton = document.querySelector(".popup__close_bin");
-
-const titleInput = document.querySelector(".popup__input_title");
-const subtitleInput = document.querySelector(".popup__input_subtitle");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
-const profileAvatar = document.querySelector(".profile__avatar");
-
-const elements = document.querySelector(".elements");
-
-const popupFoto = document.querySelector(".popup_foto");
-const closeFotoButton = document.querySelector(".popup__close_foto");
-
-const popupAddCard = document.querySelector(".popup_picture");
-const popupAvatar = document.querySelector(".popup_avatar");
-
-const addButton = document.querySelector(".profile__add-button");
-const closeAddCardButton = document.querySelector(".popup__close_picture");
-const closeAvatarButton = document.querySelector(".popup__close_avatar");
-
-const cardTemplate = document.querySelector(".element-template");
-
-const avatarButton = document.querySelector(".profile__avatar-button");
-
-const section = new Section(renderCard, elements);
+const section = new Section(renderCard, Constants.elements);
 
 api
   .getInitialCards()
@@ -66,49 +20,53 @@ api
     console.log(err);
   });
 
-const popupFotoClass = new PopupWithImage(popupFoto);
-popupFotoClass.setEventListeners(closeFotoButton);
+const popupFotoClass = new PopupWithImage(Constants.popupFoto);
+popupFotoClass.setEventListeners();
 
-const popupBinClass = new PopupWithButton(popupBin, api);
-popupBinClass.setEventListeners(closeBinButton);
+const popupBinClass = new PopupWithButton(Constants.popupBin, api);
+popupBinClass.setEventListeners();
 
 const formEditValidator = new FormValidator(
-  validationConfig,
-  popupEdit.querySelector(".popup__content")
+  Constants.validationConfig,
+  Constants.popupEdit.querySelector(".popup__content")
 );
 
 const popupEditClass = new PopupWithForm(
-  popupEdit,
+  Constants.popupEdit,
   saveClick,
   formEditValidator
 );
-popupEditClass.setEventListeners(closeButton);
+popupEditClass.setEventListeners();
 
 const formAddCardValidator = new FormValidator(
-  validationConfig,
-  popupAddCard.querySelector(".popup__content")
+  Constants.validationConfig,
+  Constants.popupAddCard.querySelector(".popup__content")
 );
 
 const formAvatarValidator = new FormValidator(
-  validationConfig,
-  popupAvatar.querySelector(".popup__content")
+  Constants.validationConfig,
+  Constants.popupAvatar.querySelector(".popup__content")
 );
 
 const popupAddCardClass = new PopupWithForm(
-  popupAddCard,
+  Constants.popupAddCard,
   savePictureClick,
   formAddCardValidator
 );
-popupAddCardClass.setEventListeners(closeAddCardButton);
+popupAddCardClass.setEventListeners();
 
 const popupAvatarClass = new PopupWithForm(
-  popupAvatar,
+  Constants.popupAvatar,
   saveAvatarClick,
   formAvatarValidator
 );
-popupAvatarClass.setEventListeners(closeAvatarButton);
+popupAvatarClass.setEventListeners();
 
-const userInfo = new UserInfo(profileTitle, profileSubtitle, profileAvatar);
+const userInfo = new UserInfo(
+  Constants.profileTitle,
+  Constants.profileSubtitle,
+  Constants.profileAvatar
+);
 
 api
   .showUserInfo()
@@ -122,8 +80,8 @@ api
 function openEditProfile() {
   popupEditClass.open();
   const data = userInfo.getUserInfo();
-  titleInput.value = data.title;
-  subtitleInput.value = data.subtitle;
+  Constants.titleInput.value = data.title;
+  Constants.subtitleInput.value = data.subtitle;
 }
 
 function openAvatar() {
@@ -154,7 +112,7 @@ function savePictureClick(event, inputData) {
   api
     .saveCard(inputData["place"], inputData["link"])
     .then((card) => {
-      const elem = renderCard(card, cardTemplate, handleCardClick);
+      const elem = renderCard(card, Constants.cardTemplate, handleCardClick);
       section.addItem(elem);
     })
     .catch((err) => {
@@ -179,7 +137,7 @@ function saveAvatarClick(event, inputData) {
 function renderCard(initialCard) {
   const card = new Card(
     initialCard,
-    cardTemplate,
+    Constants.cardTemplate,
     handleCardClick,
     popupBinClass,
     userInfo.getUserId(),
@@ -188,6 +146,6 @@ function renderCard(initialCard) {
   return card.createPhotoElement();
 }
 
-editButton.addEventListener("click", openEditProfile);
-addButton.addEventListener("click", showPictureClick);
-avatarButton.addEventListener("click", openAvatar);
+Constants.editButton.addEventListener("click", openEditProfile);
+Constants.addButton.addEventListener("click", showPictureClick);
+Constants.avatarButton.addEventListener("click", openAvatar);

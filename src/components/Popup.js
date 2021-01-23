@@ -20,10 +20,7 @@ export default class Popup {
 
   _handleEscClose(event) {
     if (event.keyCode === this._ESC_CODE) {
-      const open = document.querySelector(".popup_opened");
-      if (open != null) {
-        this.close();
-      }
+      this.close();
     }
   }
 
@@ -33,7 +30,7 @@ export default class Popup {
     }
   }
 
-  setEventListeners(closeButton) {
-    closeButton.addEventListener("click", () => this.close());
+  setEventListeners() {
+    this._popup.querySelector('.popup__close').addEventListener("click", () => this.close());
   }
 }

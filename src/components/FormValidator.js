@@ -3,6 +3,7 @@ export default class FormValidator {
     this._config = config;
     this._form = form;
     this._popupButton = this._form.querySelector(this._config.buttonSelector);
+    this._popupInputs = this._form.querySelectorAll(this._config.inputSelector);
   }
 
   _setButtonState(button, isActive) {
@@ -49,8 +50,7 @@ export default class FormValidator {
   }
 
   eraseInputs() {
-    const popupInputs = this._form.querySelectorAll(this._config.inputSelector);
-    popupInputs.forEach((input) => {
+    this._popupInputs.forEach((input) => {
       input.value = "";
       this._hideError(input);
     });
@@ -60,9 +60,7 @@ export default class FormValidator {
   popupFormValidation() {
     this._setButtonState(this._popupButton, this._form.checkValidity());
 
-    const popupInputs = this._form.querySelectorAll(this._config.inputSelector);
-
-    popupInputs.forEach((input) => {
+    this._popupInputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkInputValidity(input);
         this._setButtonState(this._popupButton, this._form.checkValidity());
