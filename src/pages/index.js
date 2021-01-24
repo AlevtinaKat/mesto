@@ -7,11 +7,11 @@ import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
-import * as Constants from "../utils/constants.js";
+import * as constants from "../utils/constants.js";
 
-const api = new Api(Constants.apiOption);
+const api = new Api(constants.apiOption);
 
-const section = new Section(renderCard, Constants.elements);
+const section = new Section(renderCard, constants.elements)
 
 api
   .getInitialCards()
@@ -20,52 +20,52 @@ api
     console.log(err);
   });
 
-const popupFotoClass = new PopupWithImage(Constants.popupFoto);
+const popupFotoClass = new PopupWithImage(constants.popupFoto);
 popupFotoClass.setEventListeners();
 
-const popupBinClass = new PopupWithButton(Constants.popupBin, api);
+const popupBinClass = new PopupWithButton(constants.popupBin, api);
 popupBinClass.setEventListeners();
 
 const formEditValidator = new FormValidator(
-  Constants.validationConfig,
-  Constants.popupEdit.querySelector(".popup__content")
+  constants.validationConfig,
+  constants.popupEdit.querySelector(".popup__content")
 );
 
 const popupEditClass = new PopupWithForm(
-  Constants.popupEdit,
+  constants.popupEdit,
   saveClick,
   formEditValidator
 );
 popupEditClass.setEventListeners();
 
 const formAddCardValidator = new FormValidator(
-  Constants.validationConfig,
-  Constants.popupAddCard.querySelector(".popup__content")
+  constants.validationConfig,
+  constants.popupAddCard.querySelector(".popup__content")
 );
 
 const formAvatarValidator = new FormValidator(
-  Constants.validationConfig,
-  Constants.popupAvatar.querySelector(".popup__content")
+  constants.validationConfig,
+  constants.popupAvatar.querySelector(".popup__content")
 );
 
 const popupAddCardClass = new PopupWithForm(
-  Constants.popupAddCard,
+  constants.popupAddCard,
   savePictureClick,
   formAddCardValidator
 );
 popupAddCardClass.setEventListeners();
 
 const popupAvatarClass = new PopupWithForm(
-  Constants.popupAvatar,
+  constants.popupAvatar,
   saveAvatarClick,
   formAvatarValidator
 );
 popupAvatarClass.setEventListeners();
 
 const userInfo = new UserInfo(
-  Constants.profileTitle,
-  Constants.profileSubtitle,
-  Constants.profileAvatar
+  constants.profileTitle,
+  constants.profileSubtitle,
+  constants.profileAvatar
 );
 
 api
@@ -80,8 +80,8 @@ api
 function openEditProfile() {
   popupEditClass.open();
   const data = userInfo.getUserInfo();
-  Constants.titleInput.value = data.title;
-  Constants.subtitleInput.value = data.subtitle;
+  constants.titleInput.value = data.title;
+  constants.subtitleInput.value = data.subtitle;
 }
 
 function openAvatar() {
@@ -112,7 +112,7 @@ function savePictureClick(event, inputData) {
   api
     .saveCard(inputData["place"], inputData["link"])
     .then((card) => {
-      const elem = renderCard(card, Constants.cardTemplate, handleCardClick);
+      const elem = renderCard(card, constants.cardTemplate, handleCardClick);
       section.addItem(elem);
     })
     .catch((err) => {
@@ -137,7 +137,7 @@ function saveAvatarClick(event, inputData) {
 function renderCard(initialCard) {
   const card = new Card(
     initialCard,
-    Constants.cardTemplate,
+    constants.cardTemplate,
     handleCardClick,
     popupBinClass,
     userInfo.getUserId(),
@@ -146,6 +146,6 @@ function renderCard(initialCard) {
   return card.createPhotoElement();
 }
 
-Constants.editButton.addEventListener("click", openEditProfile);
-Constants.addButton.addEventListener("click", showPictureClick);
-Constants.avatarButton.addEventListener("click", openAvatar);
+constants.editButton.addEventListener("click", openEditProfile);
+constants.addButton.addEventListener("click", showPictureClick);
+constants.avatarButton.addEventListener("click", openAvatar);

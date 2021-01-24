@@ -23,8 +23,13 @@ export default class PopupWithButton extends Popup {
 
   _removeElement(event) {
     event.preventDefault();
-    this._element.remove();
-    this._api.deleteCard(this._id);
-    super.close();
+    this._api.deleteCard(this._id)
+    .then(() =>  {
+      this._element.remove()
+      super.close()
+    } )
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
