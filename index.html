@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Жак-ив-Кусто</title>
+  <link href="main.css" rel="stylesheet"></head>
+  <body class="page">
+    <div class="page__container">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="54a3b70b43a32491434a.svg"
+          alt="Логотип Место"
+        />
+      </header>
+
+      <main class="main">
+        <section class="profile">
+          <button class="profile__avatar-button" type="button">
+            <img
+              class="profile__avatar"
+              src="Для заполнения в js"
+              alt="Для заполнения в js"
+            />
+            <img
+              class="profile__avatar-pen"
+              src="8deb905453f51a99090c.svg"
+              alt="Ручка"
+            />
+          </button>
+
+          <div class="profile__info">
+            <div class="profile__edit">
+              <h1 class="profile__title"></h1>
+              <button
+                class="button profile__edit-button"
+                type="button"
+              ></button>
+            </div>
+
+            <p class="profile__subtitle"></p>
+          </div>
+
+          <button class="button profile__add-button" type="button"></button>
+        </section>
+
+        <section class="elements"></section>
+      </main>
+      <footer class="footer">
+        <p class="footer__title">&copy; 2020. Mesto Russia</p>
+      </footer>
+      <div class="popup popup_edit">
+        <form
+          class="popup__content popup__content_edit"
+          name="popup-content-edit"
+        >
+          <h3 class="popup__text">Редактировать профиль</h3>
+          <label for="title">
+            <input
+              class="popup__input popup__input_title"
+              id="title"
+              name="title"
+              required="required"
+              minlength="2"
+              maxlength="40"
+            />
+            <span id="title-error" class="error"></span>
+          </label>
+          <label for="subtitle">
+            <input
+              class="popup__input popup__input_subtitle"
+              id="subtitle"
+              name="subtitle"
+              required="required"
+              minlength="2"
+              maxlength="200"
+            />
+            <span id="subtitle-error" class="error"></span>
+          </label>
+
+          <button
+            class="button popup__close popup__close_edit"
+            type="button"
+          ></button>
+          <button class="button popup__button" type="submit">Сохранить</button>
+        </form>
+      </div>
+
+      <div class="popup popup_picture">
+        <form
+          class="popup__content popup__content_picture"
+          name="popup-content-picture"
+        >
+          <h3 class="popup__text">Новое место</h3>
+
+          <label for="place">
+            <input
+              class="popup__input popup__input_place"
+              id="place"
+              name="place"
+              placeholder="Название"
+              minlength="2"
+              maxlength="30"
+              required="required"
+            />
+            <span id="place-error" class="error"></span>
+          </label>
+
+          <label for="link">
+            <input
+              class="popup__input popup__input_link"
+              id="link"
+              name="link"
+              placeholder="Ссылка на картинку"
+              required="required"
+              type="url" pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)"
+            />
+            <span id="link-error" class="error"></span>
+          </label>
+          <button
+            class="button popup__close popup__close_picture"
+            type="button"
+          ></button>
+          <button class="button popup__button" type="submit">Сохранить</button>
+        </form>
+      </div>
+
+      <div class="popup popup_foto">
+        <div class="popup__content-foto">
+          <button
+            class="button popup__close popup__close_foto"
+            type="button"
+          ></button>
+          <img
+            class="popup__foto-full"
+            src="Для заполнения в js"
+            alt="Для заполнения в js"
+          />
+          <p class="popup__foto-title"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup popup_bin">
+      <form class="popup__content popup__content_bin" name="popup-content-bin">
+        <h3 class="popup__text">Вы уверены?</h3>
+
+        <button
+          class="button popup__close popup__close_bin"
+          type="button"
+        ></button>
+        <button class="button popup__button" type="submit">Да</button>
+      </form>
+    </div>
+
+    <div class="popup popup_avatar">
+      <form
+        class="popup__content popup__content_avatar"
+        name="popup-content-avatar"
+      >
+        <h3 class="popup__text">Обновить аватар</h3>
+
+        <label for="link">
+          <input
+            class="popup__input popup__input_link"
+            id="avatarLink"
+            name="avatarLink"
+            placeholder="Ссылка на картинку"
+            required="required"
+            type="url" pattern="http(s?)(:\/\/)([a-zA-z0-9\-_\/\.]*)"
+          />
+          <span id="avatarLink-error" class="error"></span>
+        </label>
+        <button
+          class="button popup__close popup__close_avatar"
+          type="button"
+        ></button>
+        <button class="button popup__button" type="submit">Сохранить</button>
+      </form>
+    </div>
+
+    <template class="element-template">
+      <div class="element">
+        <button class="button element__foto-button" type="button">
+          <img
+            class="element__foto"
+            src="Для заполнения в js"
+            alt="Для заполнения в js"
+          />
+        </button>
+        <button class="button element__bin" type="button"></button>
+        <div class="element__like">
+          <h2 class="element__title"></h2>
+          <div>
+            <button class="button element__heart" type="button"></button>
+            <div class="element__like-count"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+  <script src="main.js"></script></body>
+</html>
